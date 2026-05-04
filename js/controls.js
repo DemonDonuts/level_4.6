@@ -19,6 +19,7 @@ function press(e)
 	if(e.keyCode == 65)
 	{
 		a = true;
+		pushing = true;
 	}
 	if(e.keyCode == 83)
 	{
@@ -42,6 +43,7 @@ function release(e)
 	if(e.keyCode == 65)
 	{
 		a = false;
+		pushing = false;
 	}
 	if(e.keyCode == 83)
 	{

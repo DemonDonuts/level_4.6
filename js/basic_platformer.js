@@ -5,6 +5,7 @@ var context;
 var timer;
 var interval;
 var player;
+var pushing = false; //push var
 
 
 	canvas = document.getElementById("canvas");
@@ -23,6 +24,8 @@ var player;
 		platform1.y = platform0.y- platform0.height/2 - platform1.height/2;
 		platform1.color = "#66ff33";
 		platform1.vx = 3;
+
+
 		
 	platform2 = new GameObject();
 		platform2.width = canvas.width-300;
@@ -74,6 +77,8 @@ function animate()
 	
 	platform1.x += platform1.vx;
 
+
+	//bottom platform
 	while(platform0.hitTestPoint(player.bottom()) && player.vy >=0)
 	{
 		player.y--;
@@ -95,6 +100,8 @@ function animate()
 		player.y++;
 		player.vy = 0;
 	}
+
+	//top platform
 	while(platform2.hitTestPoint(player.top()) && player.vy <=0)
 	{
 		player.y++;
@@ -121,9 +128,25 @@ function animate()
 	//---------Run this program first.
 	//---------Change the following condition so that the player pushes the wall-------------------------------------------------
 
-	while(platform1.hitTestPoint(player.left()))
+	//makes the player push back against block
+	if (platform1.hitTestPoint(player.left()) && player.vx <= 0 && pushing)
+	{
+		platform1.x += player.vx;
+		//makes block stop
+		platform1.vx = 0;
+
+		// player.x++;
+		// player.vx = 0;
+
+		//moves the block but doesn't stop the movement
+		player.x = platform1.x + platform1.width/2 + player.width/2;
+	}
+
+	//the platform statement
+	while(platform1.hitTestPoint(player.left()) && player.vx <=0  && !pushing)
 	{
 		player.x++;
+		player.vx = 0;
 	}
 	
 	
